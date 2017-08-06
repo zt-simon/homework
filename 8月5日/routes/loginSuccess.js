@@ -39,7 +39,8 @@ router.post('/', function(req, res) {
     var selectSQL ="select * from users where username ="+username;
 
     connect.query(selectSQL,function (error,results) {
-        console.log(results[0]['password']);
+        console.log(results);
+        // console.log(results[0]['password']);
         if(error){
             console.log('查询失败');
             console.log(error);
@@ -47,12 +48,16 @@ router.post('/', function(req, res) {
             console.log('查询成功');
             console.dir(results);
         }
-
-        if(password==results[0]['password']){
-            res.render('loginSuccess',{title:'登录成功'});
-        }else{
-            res.render('loginSuccess',{title:'登录失败'});
+        if(results.length==0){
+            res.render('loginSuccess',{title:'用户名不存在'});
+        }else {
+            if(password==results[0]['password']){
+                res.render('loginSuccess',{title:'登录成功'});
+            }else{
+                res.render('loginSuccess',{title:'密码错误'});
+            }
         }
+
     })
 
 
