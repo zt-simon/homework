@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .root{
+            height:50px;
+            background-color: cadetblue;
+            text-align: right;
+            /*line-height: 50px;*/
+        }
+        .img-style{
+            width: 30px;
+            height: 30px;
+            margin-left: 20px ;
+            margin-right:20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .img-style:hover{
+            background-color: red;
+        }
+        .line{
+            heith:1px;
+            background-color: lightgrey;
+        }
+        .picW{
+            display: inline-block;
+            width: 300px;
+        }
+        .sty-w{
+            width: 710px;
+        }
+
+    </style>
+    <script src="node_modules/react/dist/react.js"></script>
+    <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    <script src="node_modules/babel-standalone/babel.js"></script>
+</head>
+<body>
+<div id="root">
+
+</div>
+
+<script type="text/babel">
+    var arrImg_src = ['https://tutorialzine.com/media/2016/03/css-variables.jpg',
+    'https://tutorialzine.com/media/2016/02/great-looking-pricing-tables.jpg'
+            ,'https://tutorialzine.com/media/2016/02/interesting-resources-february.jpg',
+                    'https://tutorialzine.com/media/2016/02/quick-tip-responsive-headers.png'
+                            ,'https://tutorialzine.com/media/2016/01/learn-sql-20-minutes.png',
+                                    'https://tutorialzine.com/media/2015/12/creating-your-first-desktop-app-with-electron.png']
+
+    var text_href = [
+        {
+            "title": "What You Need To Know About CSS Variables",
+            "url": "http://tutorialzine.com/2016/03/what-you-need-to-know-about-css-variables/",
+            "image": {
+                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/03/css-variables.jpg",
+                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/03/css-variables-150x150.jpg"
+            }
+        },
+        {
+            "title": "Freebie: 4 Great Looking Pricing Tables",
+            "url": "http://tutorialzine.com/2016/02/freebie-4-great-looking-pricing-tables/",
+            "image": {
+                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/great-looking-pricing-tables.jpg",
+                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/great-looking-pricing-tables-150x150.jpg"
+            }
+        },
+        {
+            "title": "20 Interesting JavaScript and CSS Libraries for February 2016",
+            "url": "http://tutorialzine.com/2016/02/20-interesting-javascript-and-css-libraries-for-february-2016/",
+            "image": {
+                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/interesting-resources-february.jpg",
+                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/interesting-resources-february-150x150.jpg"
+            }
+        },
+        {
+            "title": "Quick Tip: The Easiest Way To Make Responsive Headers",
+            "url": "http://tutorialzine.com/2016/02/quick-tip-easiest-way-to-make-responsive-headers/",
+            "image": {
+                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/quick-tip-responsive-headers.png",
+                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/02/quick-tip-responsive-headers-150x150.png"
+            }
+        },
+        {
+            "title": "Learn SQL In 20 Minutes",
+            "url": "http://tutorialzine.com/2016/01/learn-sql-in-20-minutes/",
+            "image": {
+                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2016/01/learn-sql-20-minutes.png",
+                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2016/01/learn-sql-20-minutes-150x150.png"
+            }
+        },
+        {
+            "title": "Creating Your First Desktop App With HTML, JS and Electron",
+            "url": "http://tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/",
+            "image": {
+                "large": "http://cdn.tutorialzine.com/wp-content/uploads/2015/12/creating-your-first-desktop-app-with-electron.png",
+                "small": "http://cdn.tutorialzine.com/wp-content/uploads/2015/12/creating-your-first-desktop-app-with-electron-150x150.png"
+            }
+        }
+    ]
+
+
+    class List extends React.Component{
+
+        render(){
+            var arrImg=[]
+            for(var i = 0; i<arrImg_src.length;i++){
+                arrImg.push(
+                        <div>
+                            <img width="300" height="300" src={arrImg_src[i]}/>
+                            <span>{text_href[i].title}</span>
+                            <div className="line">
+
+                            </div>
+                        </div>
+
+                )
+            }
+            return(
+                    <div>
+                        {arrImg}
+                    </div>
+            )
+        }
+    }
+
+    class Grid extends React.Component{
+        render(){
+            var textArr=[]
+            for(var i = 0; i<arrImg_src.length; i++){
+                textArr.push(<div className="picW">
+                    <img className="picI" src={arrImg_src[i]} width="200" height="200"/>
+                </div>)
+
+            }
+            return(
+                    <div className="sty-w">
+                        {textArr}
+                    </div>
+            )
+
+        }
+    }
+
+    class AllControl extends React.Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                tf:true
+            }
+        }
+        //登录按钮点击事件
+        grid=()=>{
+            this.setState({
+                tf : true
+            })
+        }
+        //退出按钮点击事件
+        list=()=>{
+            this.setState({
+                tf : false
+            })
+        }
+        render(){
+            const state = this.state.tf
+            let list = null
+            if(state){
+                list = <Grid/>
+            } else {
+                list = <List/>
+            }
+            return (
+                    <div>
+                        <div className="root">
+                            <img onClick={this.list} className="img-style" src="素材/list.png" alt=""/>
+                            <img onClick={this.grid} className="img-style" src="素材/grade.png" alt=""/>
+                        </div>
+                        <div>
+                            {list}
+                        </div>
+                    </div>
+
+
+            )
+        }
+
+
+    }
+
+//    ReactDOM.render(
+//            <List/>,document.getElementById('rootList')
+//    )
+
+
+//    class Change extends React.Component{
+//
+//        render(){
+//            return(
+//                    <div>
+//                        <img className="img-style" src="素材/list.png" alt=""/>
+//                        <img className="img-style" src="素材/grade.png" alt=""/>
+//                    </div>
+//            )
+//        }
+//    }
+
+    ReactDOM.render(
+            <AllControl/>,document.getElementById('root')
+    )
+
+</script>
+</body>
+</html>
